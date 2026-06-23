@@ -1,0 +1,34 @@
+# ══════════════════════════════════════════════════════════════════
+#  config.template.yaml — Aletheia-AI Data Curation Pipeline
+#  Copy this to config.yaml and fill in your values.
+#  NEVER commit config.yaml (it has real bucket paths/dates).
+# ══════════════════════════════════════════════════════════════════
+
+# Pipeline mode: 1=Local Frames, 2=Local Videos, 3=GCP Cloud
+mode: "3"
+
+# --- GCP settings ---
+gcp_cloud_path: "your-bucket/project/client/record"
+camera_ids: "all"           # comma-separated IDs or "all"
+target_dates: "20260101"    # YYYYMMDD, comma-separated for multiple
+target_hours: "all"         # comma-separated HH or "all"
+video_limit: "all"          # max videos this run, or "all"
+
+# --- Output: 1=Clips, 2=Frames, 3=Both ---
+output_choice: "3"
+fps_rate: "6"
+
+# --- Local destination ---
+local_dataset_dir: "/home/user/datasets/"
+
+# --- Detection: 1=YOLO, 2=GroundingDINO, 3=Both ---
+detection_strategy: "1"
+coco_target_classes: "person"
+coco_exclusion_classes: "tv"
+custom_dino_prompt: ""
+camera_has_tv: "n"
+
+# --- Tuning ---
+frame_skip_seconds: 2
+yolo_confidence: 0.32
+dino_confidence: 0.32

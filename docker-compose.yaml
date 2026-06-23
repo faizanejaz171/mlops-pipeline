@@ -1,0 +1,18 @@
+services:
+  curation-pipeline:
+    build: .
+    image: cv-data-pipeline:latest
+    container_name: cv-data-pipeline
+    runtime: nvidia          # GPU access
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      # GCP credentials (never hardcoded)
+      - ./service-account.json:/app/service-account.json:ro
+      # Annotator edits their config here
+      - ./configs/config.yaml:/app/configs/config.yaml
+      # Output datasets land here on host
+      - ./datasets:/app/datasets
+    stdin_open: true
+    tty: true                # interactive terminal (wizard prompts work)
+    network_mode: host       # needs access to Beast (10.20.30.15) and CVAT
